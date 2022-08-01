@@ -4,6 +4,9 @@ import RNBootSplash from 'react-native-bootsplash';
 //navigator
 import {Home} from './navigator';
 
+//recoil
+import {RecoilRoot} from 'recoil';
+
 const App = () => {
   useEffect(() => {
     const init = async () => {
@@ -15,7 +18,11 @@ const App = () => {
       console.log('Bootsplash has been hidden successfully');
     });
   }, []);
-  return <Home />;
+  return (
+    <RecoilRoot>
+      <Home />
+    </RecoilRoot>
+  );
 };
 
 export default App;
