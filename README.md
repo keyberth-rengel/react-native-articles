@@ -17,7 +17,8 @@ Esta es una Arquitectura basica
 # Screenshots
 
 <img src='https://user-images.githubusercontent.com/45502428/151078596-33f0dadc-6a1b-49ba-b411-ac82638653e7.jpg' width="300px" />
-
+<img src='https://user-images.githubusercontent.com/45502428/182452995-f38d736a-6a44-4278-9a00-fd80e91b9e47.jpg' width="300px" />
+<img src='https://user-images.githubusercontent.com/45502428/182453010-0fab444b-2900-4f8d-942a-b574893aa46f.jpg' width="300px" />
 
 - El proyecto cuenta con 1 vistas - Home Screen
 
