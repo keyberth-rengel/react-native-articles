@@ -6,6 +6,7 @@ import {Home} from './navigator';
 
 //recoil
 import {RecoilRoot} from 'recoil';
+import {KeyboardAvoidingView, SafeAreaView, ScrollView} from 'react-native';
 
 const App = () => {
   useEffect(() => {
@@ -19,9 +20,15 @@ const App = () => {
     });
   }, []);
   return (
-    <RecoilRoot>
-      <Home />
-    </RecoilRoot>
+    <SafeAreaView>
+      <KeyboardAvoidingView behavior="height" enabled>
+        <ScrollView>
+          <RecoilRoot>
+            <Home />
+          </RecoilRoot>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 
