@@ -65,6 +65,9 @@ export const Dimension = StyleSheet.create({
   paddingVerticalMin: {
     paddingVertical: 16,
   },
+  marginBottomDefault: {
+    marginBottom: 16,
+  },
   heightDefault: {
     height: 16,
   },

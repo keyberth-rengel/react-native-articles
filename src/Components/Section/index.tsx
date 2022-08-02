@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {FlatList, Text, View} from 'react-native';
 import {
   BackgroundColor,
   ContainerStyled,
@@ -27,12 +27,17 @@ export const Section = ({item: {userId, posts}}: SectionProps) => {
         User {userId}
       </Text>
       <View style={[DividerStyled.smallWidthDivider]} />
-      <Card
-        data={{
-          posts,
-        }}
+
+      <FlatList
+        data={posts}
+        renderItem={Card}
+        ItemSeparatorComponent={() => (
+          <View
+            style={[DividerStyled.divider, Dimension.marginBottomDefault]}
+          />
+        )}
+        keyExtractor={item => item.id.toString()}
       />
-      <View style={[DividerStyled.divider]} />
     </View>
   );
 };
