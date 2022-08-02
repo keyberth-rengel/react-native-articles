@@ -38,6 +38,9 @@ export const Dimension = StyleSheet.create({
   paddingTop: {
     paddingTop: 32,
   },
+  paddingTopMin: {
+    paddingTop: 8,
+  },
   paddingBottom: {
     paddingBottom: 32,
   },

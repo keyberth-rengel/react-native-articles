@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {FlatList, View} from 'react-native';
+import {FlatList, Platform, View} from 'react-native';
 import {getPosts} from '../../services/post.services';
 import {useRecoilState} from 'recoil';
 import {posts as postsState} from '../../store';
@@ -66,12 +66,18 @@ export const Home = () => {
     }
   };
 
+  const validatePlatformForPaddingTop = (): {paddingTop: number} => {
+    return Platform.OS === 'ios'
+      ? Dimension.paddingTopMax
+      : Dimension.paddingTopMin;
+  };
+
   return (
     <View
       style={[
         ContainerStyled.fullScreen,
-        Dimension.paddingTopMax,
         BackgroundColor.greyLight,
+        validatePlatformForPaddingTop(),
       ]}>
       <Input data={{searchText}} actions={{filterArticlesByTextInput}} />
 
