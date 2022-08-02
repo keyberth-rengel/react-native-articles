@@ -16,7 +16,7 @@ export const Home = () => {
   const setArticlesLS = useSaveStoreData();
   const getArticlesLS = useGetStoreData();
 
-  const handlePost = (data: PostsByUserId) => {
+  const handlePost = (data: PostsByUserId): void => {
     setPost(prevState => {
       return [...prevState, data];
     });
@@ -32,7 +32,7 @@ export const Home = () => {
     getAndSetArticlesStorage().catch(error => console.log({error}));
   }, []);
 
-  const getAndSetArticlesStorage = async () => {
+  const getAndSetArticlesStorage = async (): Promise<void> => {
     const articles = await getArticlesLS();
 
     if (!articles || articles.length === 0) {
@@ -42,11 +42,11 @@ export const Home = () => {
     }
   };
 
-  const getArticlesServices = async () => {
+  const getArticlesServices = async (): Promise<void> => {
     await getPosts({handlePost}).catch(error => console.log({error}));
   };
 
-  const filterArticlesByTextInput = (value: string) => {
+  const filterArticlesByTextInput = (value: string): void => {
     setSearchText(value);
     if (value.length > 0) {
       const newArticlesList = posts?.map(item => {
@@ -64,6 +64,11 @@ export const Home = () => {
     } else {
       setLeakedArticles(leakedArticles);
     }
+  };
+
+  const refreshPosts = (): void => {
+    setPost([]);
+    getArticlesServices().catch(error => console.log({error}));
   };
 
   const validatePlatformForPaddingTop = (): {paddingTop: number} => {
@@ -86,6 +91,8 @@ export const Home = () => {
         renderItem={Section}
         ItemSeparatorComponent={() => <View style={[Dimension.heightMin]} />}
         keyExtractor={item => 'user' + item.userId}
+        onRefresh={refreshPosts}
+        refreshing={posts.length === 0 || leakedArticles.length !== 0}
       />
     </View>
   );

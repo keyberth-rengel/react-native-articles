@@ -33,6 +33,7 @@ export const Section = ({item: {userId, posts}}: SectionProps) => {
       <View style={[DividerStyled.smallWidthDivider]} />
 
       <FlatList
+        key="section-list-articles"
         data={posts}
         renderItem={Card}
         ItemSeparatorComponent={() => (
