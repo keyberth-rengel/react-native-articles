@@ -10,7 +10,19 @@ import {TextInput, View} from 'react-native';
 import {useRecoilState} from 'recoil';
 import {posts as postsState} from '../../store';
 
-export const Input = () => {
+interface InputProps {
+  data: {
+    searchText: string;
+  };
+  actions: {
+    filterArticlesByTextInput: (data: string) => void;
+  };
+}
+
+export const Input = ({
+  data: {searchText},
+  actions: {filterArticlesByTextInput},
+}: InputProps) => {
   const [posts] = useRecoilState(postsState);
 
   return (
@@ -24,6 +36,8 @@ export const Input = () => {
         },
       ]}>
       <TextInput
+        value={searchText}
+        onChangeText={filterArticlesByTextInput}
         placeholderTextColor={colors.gray}
         placeholder="Buscar"
         style={[InputStyled.input]}

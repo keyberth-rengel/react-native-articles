@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {FlatList, View} from 'react-native';
 import {getPosts} from '../../services/post.services';
 import {useRecoilState} from 'recoil';
@@ -10,6 +10,8 @@ import {Input} from '../../Components/Input';
 
 export const Home = () => {
   const [posts, setPost] = useRecoilState(postsState);
+  const [leakedArticles, setLeakedArticles] = useState<PostsByUserId[]>([]);
+  const [searchText, setSearchText] = useState<string>('');
 
   const handlePost = (data: PostsByUserId) => {
     setPost(prevState => {
@@ -21,6 +23,26 @@ export const Home = () => {
     getPosts({handlePost}).catch(error => console.log({error}));
   }, []);
 
+  const filterArticlesByTextInput = (value: string) => {
+    setSearchText(value);
+    if (value.length > 0) {
+      const newArticlesList = posts?.map(item => {
+        const postsByUser = item.posts.filter(post =>
+          post.title.toLowerCase().includes(value.toLowerCase()),
+        );
+
+        return {
+          userId: item.userId,
+          posts: postsByUser,
+        };
+      });
+
+      setLeakedArticles(newArticlesList);
+    } else {
+      setLeakedArticles(leakedArticles);
+    }
+  };
+
   return (
     <View
       style={[
@@ -28,13 +50,13 @@ export const Home = () => {
         Dimension.paddingTopMax,
         BackgroundColor.greyLight,
       ]}>
-      <Input />
+      <Input data={{searchText}} actions={{filterArticlesByTextInput}} />
 
       <FlatList
-        data={posts}
+        data={leakedArticles.length > 0 ? leakedArticles : posts}
         renderItem={Section}
         ItemSeparatorComponent={() => <View style={[Dimension.heightMin]} />}
-        keyExtractor={item => item.userId.toString()}
+        keyExtractor={item => 'user' + item.userId}
       />
     </View>
   );

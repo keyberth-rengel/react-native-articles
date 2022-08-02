@@ -15,6 +15,10 @@ interface SectionProps {
 }
 
 export const Section = ({item: {userId, posts}}: SectionProps) => {
+  if (posts.length === 0) {
+    return;
+  }
+
   return (
     <View
       style={[
@@ -36,7 +40,7 @@ export const Section = ({item: {userId, posts}}: SectionProps) => {
             style={[DividerStyled.divider, Dimension.marginBottomDefault]}
           />
         )}
-        keyExtractor={item => item.id.toString()}
+        keyExtractor={item => 'article' + item.id}
       />
     </View>
   );

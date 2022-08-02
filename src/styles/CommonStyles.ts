@@ -97,5 +97,6 @@ export const InputStyled = StyleSheet.create({
     borderBottomWidth: 2,
     fontSize: 20,
     paddingHorizontal: 16,
+    color: colors.gray,
   },
 });
