@@ -8,8 +8,13 @@ import {
   TextStyled,
 } from '../../styles';
 import {Card} from './Card';
+import {PostsByUserId} from '../../API/queries/post.interfaces';
 
-export const Section = () => {
+interface SectionProps {
+  item: PostsByUserId;
+}
+
+export const Section = ({item: {userId, posts}}: SectionProps) => {
   return (
     <View
       style={[
@@ -19,10 +24,14 @@ export const Section = () => {
         BackgroundColor.grey,
       ]}>
       <Text style={[TextStyled.textLongStyled, TextStyled.fontWeight]}>
-        Lorem Ipsum
+        User {userId}
       </Text>
       <View style={[DividerStyled.smallWidthDivider]} />
-      <Card />
+      <Card
+        data={{
+          posts,
+        }}
+      />
       <View style={[DividerStyled.divider]} />
     </View>
   );

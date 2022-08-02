@@ -68,6 +68,9 @@ export const Dimension = StyleSheet.create({
   heightDefault: {
     height: 16,
   },
+  heightMin: {
+    height: 8,
+  },
 });
 
 export const DividerStyled = StyleSheet.create({
@@ -80,6 +83,16 @@ export const DividerStyled = StyleSheet.create({
   divider: {
     height: 1,
     backgroundColor: colors.black,
+    paddingHorizontal: 16,
+  },
+});
+
+export const InputStyled = StyleSheet.create({
+  input: {
+    height: 48,
+    borderBottomColor: colors.white,
+    borderBottomWidth: 2,
+    fontSize: 20,
     paddingHorizontal: 16,
   },
 });

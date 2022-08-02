@@ -1,16 +1,12 @@
 import React, {useEffect} from 'react';
-import {TextInput, View} from 'react-native';
+import {FlatList, View} from 'react-native';
 import {getPosts} from '../../services/post.services';
 import {useRecoilState} from 'recoil';
 import {posts as postsState} from '../../store';
 import {PostsByUserId} from '../../API/queries/post.interfaces';
-import {
-  BackgroundColor,
-  colors,
-  ContainerStyled,
-  Dimension,
-} from '../../styles';
+import {BackgroundColor, ContainerStyled, Dimension} from '../../styles';
 import {Section} from '../../Components/Section';
+import {Input} from '../../Components/Input';
 
 export const Home = () => {
   const [posts, setPost] = useRecoilState(postsState);
@@ -32,28 +28,14 @@ export const Home = () => {
         Dimension.paddingTopMax,
         BackgroundColor.greyLight,
       ]}>
-      <View
-        style={[
-          ContainerStyled.custom,
-          BackgroundColor.black,
-          Dimension.paddingHorizontal,
-          {
-            paddingBottom: 2,
-          },
-        ]}>
-        <TextInput
-          placeholderTextColor={colors.gray}
-          placeholder="Buscar"
-          style={{
-            height: 48,
-            borderBottomColor: colors.white,
-            borderBottomWidth: 2,
-            fontSize: 20,
-            paddingHorizontal: 16,
-          }}
-        />
-      </View>
-      <Section />
+      <Input />
+
+      <FlatList
+        data={posts}
+        renderItem={Section}
+        ItemSeparatorComponent={() => <View style={[Dimension.heightMin]} />}
+        keyExtractor={item => item.userId.toString()}
+      />
     </View>
   );
 };
