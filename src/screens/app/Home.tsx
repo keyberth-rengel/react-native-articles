@@ -7,11 +7,14 @@ import {PostsByUserId} from '../../API/queries/post.interfaces';
 import {BackgroundColor, ContainerStyled, Dimension} from '../../styles';
 import {Section} from '../../Components/Section';
 import {Input} from '../../Components/Input';
+import {useGetStoreData, useSaveStoreData} from '../../hooks/useStorage';
 
 export const Home = () => {
   const [posts, setPost] = useRecoilState(postsState);
   const [leakedArticles, setLeakedArticles] = useState<PostsByUserId[]>([]);
   const [searchText, setSearchText] = useState<string>('');
+  const setArticlesLS = useSaveStoreData();
+  const getArticlesLS = useGetStoreData();
 
   const handlePost = (data: PostsByUserId) => {
     setPost(prevState => {
@@ -20,8 +23,28 @@ export const Home = () => {
   };
 
   useEffect(() => {
-    getPosts({handlePost}).catch(error => console.log({error}));
+    if (posts.length > 0) {
+      setArticlesLS(posts).catch(error => console.log({error}));
+    }
+  }, [posts]);
+
+  useEffect(() => {
+    getAndSetArticlesStorage().catch(error => console.log({error}));
   }, []);
+
+  const getAndSetArticlesStorage = async () => {
+    const articles = await getArticlesLS();
+
+    if (!articles || articles.length === 0) {
+      getArticlesServices().catch(error => console.log({error}));
+    } else {
+      setPost(articles);
+    }
+  };
+
+  const getArticlesServices = async () => {
+    await getPosts({handlePost}).catch(error => console.log({error}));
+  };
 
   const filterArticlesByTextInput = (value: string) => {
     setSearchText(value);

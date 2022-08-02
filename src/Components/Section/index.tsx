@@ -16,7 +16,7 @@ interface SectionProps {
 
 export const Section = ({item: {userId, posts}}: SectionProps) => {
   if (posts.length === 0) {
-    return;
+    return null;
   }
 
   return (
